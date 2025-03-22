@@ -26,7 +26,6 @@ struct {
     uint file_offset;
     uint entry_fdata_size;
     uint db_index;
+    FSeek(startof(this) + entry_size);
     FSkip(-FTell()&3);
 } entry[header.entry_count] <optimize = false>;
-    
-    
