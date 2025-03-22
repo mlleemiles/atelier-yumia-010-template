@@ -1,0 +1,24 @@
+struct {
+    uint magic;
+    uint version;
+    uint header_size;
+    uint preload_size;
+} header;
+
+local TFindResults fa = FindAll("IDRK");
+
+struct {
+    uint magic;
+    uint version;
+    uint64 entry_size;
+    uint64 compress_size;
+    uint64 file_size;
+    uint entry_type;
+    uint ktid;
+    uint ktid_type;
+    uint flag;
+    local uint unk_size = entry_size - compress_size - 48;
+    ubyte unk_content[unk_size];
+    ubyte data[compress_size];
+    FSkip(-FTell()&15);
+} entry[fa.count] <optimize = false>;

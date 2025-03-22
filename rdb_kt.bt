@@ -1,0 +1,32 @@
+struct {
+    uint magic;
+    uint version;
+    uint entry_size;
+    uint compress_size;
+    uint entry_count;
+    uint ktid;
+    uint kitd_type;
+    uint flag;
+} header;
+
+
+struct {
+    uint magic;
+    uint version;
+    uint64 entry_size;
+    uint64 compress_size;
+    uint64 file_size;
+    uint entry_type;
+    uint ktid;
+    uint ktid_type;
+    uint flag;
+    local uint unk_size = entry_size - compress_size - 48;
+    ubyte unk_content[unk_size];
+    ushort unk0;
+    uint file_offset;
+    uint entry_fdata_size;
+    uint db_index;
+    FSkip(-FTell()&3);
+} entry[header.entry_count] <optimize = false>;
+    
+    
